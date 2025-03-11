@@ -1,60 +1,60 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import Link from "next/link";
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { Button, TextField, Stack } from "@mui/material";
-import { motion, AnimatePresence } from "framer-motion"; // Provides a better and more customizable animation effect.
-import { X } from "lucide-react";
+import Image from "next/image"
+import Link from "next/link"
+import React, { useState } from "react"
+import { Formik, Form, Field, ErrorMessage } from "formik"
+import * as Yup from "yup"
+import { Button, TextField, Stack } from "@mui/material"
+import { motion, AnimatePresence } from "framer-motion" // Provides a better and more customizable animation effect.
+import { X } from "lucide-react"
 
 export default function Landing() {
-  const [open, setOpen] = useState(false);
-  const [isLLogin, setIsLogin] = useState(true);
-  const [showNotification, setShowNotification] = useState(false);
+  const [open, setOpen] = useState(false)
+  const [isLLogin, setIsLogin] = useState(true)
+  const [showNotification, setShowNotification] = useState(false)
 
   const handleNotification = () => {
-    setShowNotification(true);
+    setShowNotification(true)
 
     setTimeout(() => {
-      setShowNotification(false);
-    }, 2000);
-  };
+      setShowNotification(false)
+    }, 2000)
+  }
 
   const handleOpenLogin = () => {
-    setIsLogin(true);
-    setOpen(true);
-  };
+    setIsLogin(true)
+    setOpen(true)
+  }
 
   const handleOpenSignUp = () => {
-    setIsLogin(false);
-    setOpen(true);
-  };
+    setIsLogin(false)
+    setOpen(true)
+  }
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => setOpen(false)
 
   const initialValues = {
     email: "",
     password: "",
-  };
+  }
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().required("Password is required"),
-  });
+  })
 
   const onSubmit = (data, { resetForm }) => {
     try {
       axios
         .post("http://localhost:3308/users/registration", data)
         .then((response) => {
-          resetForm();
-        });
+          resetForm()
+        })
     } catch (err) {
-      console.error("Error Registering: ", err);
+      console.error("Error Registering: ", err)
     }
-  };
+  }
 
   return (
     <div className="bg-gradient-to-r from-[#080C10] from-0% to-[#171B23] to-85% text-[#EAEAEB] min-h-screen pt-3 pr-[150px] pb-5 pl-[150px]">
@@ -333,7 +333,7 @@ export default function Landing() {
                         type="submit"
                         variant="contained"
                         onClick={handleNotification}
-                        className="w-[100%] mb-4 h-[38px] mb-5 bg-[#171B23] text-[#FFDDFF] text-[13px] font-semibold rounded-lg"
+                        className="w-[100%] mb-5 h-[38px] bg-[#171B23] text-[#FFDDFF] text-[13px] font-semibold rounded-lg"
                       >
                         Sign up
                       </Button>
@@ -480,5 +480,5 @@ export default function Landing() {
         )}
       </AnimatePresence>
     </div>
-  );
+  )
 }
